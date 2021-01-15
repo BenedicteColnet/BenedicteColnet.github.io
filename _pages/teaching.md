@@ -14,8 +14,9 @@ This class is an introduction to data analysis, statistics and machine learning 
 
 The files are updated as the course progresses:
 
-[Presentation]({{ site.url }}/files/SlidesPresentationsCours2021.pdf)
-[Class 1]({{ site.url }}/files/class1/Cours1.html) and [data]({{ site.url }}/files/class1/ozoneNA.csv) 
+- [Presentation]({{ site.url }}/files/SlidesPresentationsCours2021.pdf)
+
+- [Class 1]({{ site.url }}/files/class1/Cours1.html) and associated [data]({{ site.url }}/files/class1/ozoneNA.csv) 
 
 
 
