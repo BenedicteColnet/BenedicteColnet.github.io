@@ -14,7 +14,7 @@ social: true
 
 Hi! Welcome on my homepage!
 
-I am Bénédicte Colnet, and a few months ago I started a Ph.D. under the supervision of [Julie Josse](http://juliejosse.com/){:target="\_blank"}, [Erwan Scornet](http://https://erwanscornet.github.io/){:target="\_blank"}, and [Gaël Varoquaux](http://gael-varoquaux.info/){:target="\_blank"} at [Inria](https://www.inria.fr/fr) Paris-Saclay.
+I am Bénédicte Colnet, and a few months ago I started a Ph.D. under the supervision of [Julie Josse](http://juliejosse.com/){:target="\_blank"}, [Erwan Scornet](https://erwanscornet.github.io/){:target="\_blank"}, and [Gaël Varoquaux](http://gael-varoquaux.info/){:target="\_blank"} at [Inria](https://www.inria.fr/fr) Paris-Saclay.
 
 **Research work**
 
