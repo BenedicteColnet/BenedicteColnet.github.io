@@ -10,9 +10,16 @@ description: Here you can find the teaching activity I have and the associated m
 
 *2021 - January to April - Master students*
 
-This class is an introduction data analysis, statistics and machine learning designed for students majoring in economy, social sciences and history. I am currently working on the materials and will share the repository *soon*.
+This class is an introduction data analysis, statistics and machine learning designed for students majoring in economy, social sciences and history. A large part of the class is dedicated to a real-analysis of data related to economy and sociology. We also include a part on text mining for students who would like to work on these data.
 
-This class is designed as a data challenge for these students, with a large part dedicated to a real-analysis of data related to economy and sociology. We also include a part on text mining for students who would like to work on these data.
+The files are updated as the course progresses.
+
+[Presentation]({{ site.url }}/files/SlidesPresentationsCours2021.pdf)
+
+[Class 1]({{ site.url }}/files/class1/Cours1.html) and [data]({{ site.url }}/files/class1/ozoneNA.csv) 
+
+
+
 
 
 **Others**
