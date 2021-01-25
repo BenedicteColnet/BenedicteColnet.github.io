@@ -18,7 +18,7 @@ The files are updated as the course progresses:
 
 - [Class 1]({{ site.url }}/files/class1/Cours1.html) and associated [data]({{ site.url }}/files/class1/ozoneNA.csv) 
 
-- [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf), and a short tutorial [[html]({{ site.url }}/files/class2/08-PCA.html)] [[code]({{ site.url }}/files/class2/08-PCA.Rmd)]
+- [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf) and a short tutorial [[html]({{ site.url }}/files/class2/08-PCA.html)] [[code]({{ site.url }}/files/class2/08-PCA.Rmd)]
 
 
 **Others**
