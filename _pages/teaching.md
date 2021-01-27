@@ -16,7 +16,7 @@ The files are updated as the course progresses:
 
 - [Presentation]({{ site.url }}/files/SlidesPresentationsCours2021.pdf)
 
-- [Class 1]({{ site.url }}/files/class1/Cours1.html) and associated [data]({{ site.url }}/files/class1/ozoneNA.csv) 
+- [Class 1]({{ site.url }}/files/class1/Cours1.html) and associated [data]({{ site.url }}/files/class1/ozoneNA.csv)  and hidden code can be found in this [hml]({{ site.url }}/files/class1/Cours1.html) and associated [data]({{ site.url }}/files/class1/Cours_1_code.html)
 
 - [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf) and a short tutorial [[code]({{ site.url }}/files/class2/08-PCA.html)]
 
