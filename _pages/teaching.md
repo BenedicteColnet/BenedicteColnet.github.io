@@ -20,6 +20,10 @@ The files are updated as the course progresses:
 
 - [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf) and a short tutorial [[code]({{ site.url }}/files/class2/08-PCA.html)]
 
+- Lab 1 with instructions [[pdf]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf)]
+ and data [[csv]({{ site.url }}/files/lab1/decathlon.csv)]
+
+
 **Others**
 
 *2015 to 2017 -  Bachelor students*

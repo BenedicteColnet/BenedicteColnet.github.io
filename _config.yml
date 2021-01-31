@@ -2,7 +2,7 @@
 # Site settings
 # -----------------------------------------------------------------------------
 name: Bénédicte Colnet
-email: benedicte[DOT]colnet[AT]inria[DOT]fr
+email: benedicte.colnet@inria.fr
 description: > # this means to ignore newlines until "url:"
   Bénédicte's Colnet Homepage
 footer_text: >
@@ -18,7 +18,6 @@ last_updated: # leave blank if you don't want to display last updated
 # -----------------------------------------------------------------------------
 github_username: BenedicteColnet # put your github username
 twitter_username: BenedicteColnet # put your twitter username
-#linkedin_username: benedicte-colnet # put your linkedin username
 scholar_authorid: vEg6pnkAAAAJ&hl=fr # put your google scholar author id
 contact_note: >
   The best way to reach me remains to contact me by email.

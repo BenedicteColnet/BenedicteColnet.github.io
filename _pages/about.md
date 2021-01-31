@@ -26,4 +26,4 @@ On this webpage you can find my publications and teaching materials. Don't hesit
 
 **Short biography** 
 
-After high school I hesitated between science and economy, and finally decided to pursue scientific studies. I graduated from *École polytechnique* and obtained a M.Sc. in bioinformatics from *Sorbonne Université*. Before I start as a Ph.D.student I worked in different places and companies during almost three years in total: industry, computational biology, and also enforcement of the French covid19 crisis team in 2020. 
+After high school I hesitated between science and economy, and finally decided to pursue scientific studies. I graduated from *École polytechnique* and obtained a M.Sc. in bioinformatics from *Sorbonne Université*. I worked in different places and companies during almost three years in total.
