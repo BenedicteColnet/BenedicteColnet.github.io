@@ -18,10 +18,9 @@ The files are updated as the course progresses:
 
 - [Class 1]({{ site.url }}/files/class1/Cours1.html), associated [data]({{ site.url }}/files/class1/ozoneNA.csv),  and hidden code can be found in this [hml]({{ site.url }}/files/class1/Cours_1_code.html)
 
-- [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf) and a short tutorial [[code]({{ site.url }}/files/class2/08-PCA.html)]
+- [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf), and a short tutorial [[code]({{ site.url }}/files/class2/08-PCA.html)]
 
-- Lab 1 with instructions [[pdf]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf)]
- and data [[csv]({{ site.url }}/files/lab1/decathlon.csv)]
+- Lab 1 [[pdf]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf)], data [[csv]({{ site.url }}/files/lab1/decathlon.csv)], and solutions  [[pdf]({{ site.url }}/files/lab1/Principal_Component_Analysis.pdf)].
 
 
 **Others**
