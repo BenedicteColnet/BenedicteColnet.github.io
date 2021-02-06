@@ -16,11 +16,16 @@ The files are updated as the course progresses:
 
 - [Presentation]({{ site.url }}/files/SlidesPresentationsCours2021.pdf)
 
-- [Class 1]({{ site.url }}/files/class1/Cours1.html), associated [data]({{ site.url }}/files/class1/ozoneNA.csv),  and hidden code can be found in this [hml]({{ site.url }}/files/class1/Cours_1_code.html)
+- [Class 1]({{ site.url }}/files/class1/Cours1.html), associated [data]({{ site.url }}/files/class1/ozoneNA.csv),  and hidden code can be found in this [document]({{ site.url }}/files/class1/Cours_1_code.html)
 
 - [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf), and a short tutorial [[code]({{ site.url }}/files/class2/08-PCA.html)]
 
-- Lab 1 [[pdf]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf)], data [[csv]({{ site.url }}/files/lab1/decathlon.csv)], and solutions  [[pdf]({{ site.url }}/files/lab1/Principal_Component_Analysis.pdf)].
+- [Lab 1]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf), [data]({{ site.url }}/files/lab1/decathlon.csv), and [solutions]({{ site.url }}/files/lab1/Principal_Component_Analysis.pdf).
+
+-[Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with [Lab2]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
+
+
+The data challenge will be launched on March, 15th!
 
 
 **Others**
