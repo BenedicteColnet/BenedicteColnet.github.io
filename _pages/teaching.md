@@ -10,7 +10,7 @@ description: Here you can find the teaching activity I have and the associated m
 
 *2021 - January to April - Master students*
 
-This class is an introduction to data analysis, statistics and machine learning designed for students majoring in economy, social sciences and history. A large part of the class is dedicated to a real-analysis of data related to economy and sociology. We also include a part on text mining for students who would like to work on these data.
+This class is an introduction to data analysis, statistics and machine learning designed for students majoring in economy, social sciences and history. A part of the class is dedicated to a real-analysis of data related to economy and sociology (the so-called data challenge). We also include a part on text mining for students who would like to work on these data.
 
 The files are updated as the course progresses:
 
@@ -18,14 +18,14 @@ The files are updated as the course progresses:
 
 - [Class 1]({{ site.url }}/files/class1/Cours1.html), associated [data]({{ site.url }}/files/class1/ozoneNA.csv),  and hidden code can be found in this [document]({{ site.url }}/files/class1/Cours_1_code.html)
 
-- [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf), and a short tutorial [[code]({{ site.url }}/files/class2/08-PCA.html)]
+- [Class 2]({{ site.url }}/files/class2/PCA_EHESS.pdf), and a short tutorial [tutorial]({{ site.url }}/files/class2/08-PCA.html)
 
-- [Lab 1]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf), [data]({{ site.url }}/files/lab1/decathlon.csv), and [solutions]({{ site.url }}/files/lab1/Principal_Component_Analysis.pdf).
+- [Lab 1]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf), [data]({{ site.url }}/files/lab1/decathlon.csv), and [solutions]({{ site.url }}/files/lab1/Principal_Component_Analysis.pdf)
 
--[Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with [Lab2]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
+- [Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with [Lab 2]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
 
 
-The data challenge will be launched on March, 15th!
+The data challenge will be launched on March, 15th. 
 
 
 **Others**
