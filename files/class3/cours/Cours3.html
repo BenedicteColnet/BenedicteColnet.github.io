@@ -3,7 +3,7 @@
   <head>
     <title>Class 3: linear model and logistic regression</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Julie Josse, Gaël Varoquaux, and Bénédicte Colnet" />
+    <meta name="author" content="Bénédicte Colnet" />
     <script src="Cours3_files/header-attrs-2.6/header-attrs.js"></script>
     <link href="Cours3_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="Cours3_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
@@ -14,7 +14,7 @@
 class: center, middle, inverse, title-slide
 
 # Class 3: linear model and logistic regression
-### Julie Josse, Gaël Varoquaux, and Bénédicte Colnet
+### Bénédicte Colnet
 ### Lundi 8 Février 2021
 
 ---
@@ -39,7 +39,7 @@ class: center, middle, inverse, title-slide
 
 Introduction to regression model: simple linear regression to Ordinary Least Squares estimation &amp; logistic regression
   
- The program will be first to introduce the theory and applications in class (~1h) 🎓 and then practice (~1h) 👷.
+ The program will be first to introduce the theory and applications in class (~1h) 🎓 and then practice (~1h) 👷‍♀️.
  
 ---
 # Why regression?
@@ -115,7 +115,7 @@ Suppose that `\(Y\)` and `\(X\)` have the following relationship
 
 `$$Y=\beta_{0}+\beta_{1} X+\varepsilon$$`
 
-with `\(\varepsilon\)` a noise ( `\(\mathbb{E}[ \varepsilon ] = 0\)` and `\(\mathbb{V}[\varepsilon] = \sigma^2\)`)), and `\(\beta_0\)` and `\(\beta_1\)` unknown parameters.
+with `\(\varepsilon\)` a noise ( `\(\mathbb{E}[\varepsilon] = 0\)` and `\(\mathbb{V}[\varepsilon] = \sigma^2\)`)), and `\(\beta_0\)` and `\(\beta_1\)` unknown parameters.
 
 --
 
@@ -221,7 +221,7 @@ In linear regression we usually see a `\(R^2\)` reported. What does it mean?
 
 --
 
-`$$\mathrm{R}^{2}=\frac{\|\hat{Y}\|^{2}}{\|Y\|^{2}}=\cos ^{2} \theta_{0}$$`
+`$$\mathrm{R}^{2}=\frac{\|\hat{Y} - \bar{Y}\|^{2}}{\|Y - \bar{Y}\|^{2}}=\cos ^{2} \theta_{0}$$`
 
 with `\(\hat{Y}\)` the prediction, and `\(Y\)` the *truth*. 
 *"Which part of the `\(Y\)` can be explained with the linear model?"*
@@ -384,7 +384,7 @@ This time we suppose the following relationship for the observed data:
 
 `$$y_{i}=\beta_{0}+\beta_{1} x_{i 1}+\beta_{2} x_{i 2}+\cdots+\beta_{p} x_{i p}+\varepsilon_{i}, \quad i=1, \cdots, n$$`
 
-with `\(\varepsilon\)` a noise ( $\mathbb{E}[ \varepsilon ] = 0 $ and `\(\mathbb{V}[\varepsilon] = \sigma^2\)`)), and `\(\beta_0\)`, ...,  `\(\beta_p\)` unknown parameters.
+with `\(\varepsilon\)` a noise, `\(\mathbb{E}[\varepsilon]=0\)` and `\(\mathbb{V}[\varepsilon] = \sigma^2\)`, and `\(\beta_0\)`, ...,  `\(\beta_p\)` unknown parameters.
 
 
 
@@ -561,7 +561,7 @@ plot(choice, scale="bic")
 You can launch the final regression with `reg.final &lt;- lm(maxO3~T12+Ne9+Vx9+maxO3v, data= ozone.m)`.
 
 --
-You can also use `RegBest` to select the model.
+You can also use `RegBest` in `FactoMineR` to select the model that uses `\(R^2\)` on groups with same number of variables.
 
 ---
 # Qualitative or categorical variable
@@ -586,17 +586,17 @@ Usually the trick is to transform this in a dummy variable ( `\(1\)` or `\(0\)` 
 
 
 ```r
-lm1 = lm(income ~ is.female, df1)
+lm1 = lm(income ~ sex, df1)
 lm1
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = income ~ is.female, data = df1)
+## lm(formula = income ~ sex, data = df1)
 ## 
 ## Coefficients:
-## (Intercept)    is.female  
+## (Intercept)          sex  
 ##        5250        -1000
 ```
 
@@ -608,6 +608,9 @@ The intercept `\(\beta_1\)` measures the difference in intercept from being a fe
 &lt;img src="Cours3_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 --
 Remember that using `lm()` with a qualitative variable is like doing a ANOVA or ANCOVA. See "Régression with R" to learn more.
+
+
+Crédits to Prof. Florian Oswald for this schematic.
 
 ---
 # And if `\(Y\)` is not continuous?
@@ -728,10 +731,9 @@ For the lab we will work with stock values and predict if the market is going up
 
 To professors and people sharing their class. Most of the content here comes from:
 
-- Prof. François Husson's book *R pour la statistique et la science des données* (`ozone` data analysis);
+- François Husson's book *R pour la statistique et la science des données* (in particular the `ozone` data analysis);
 
-- Prof. Florian Oswald for their econometrics class at SciencePo (`ScPoEconometrics` for illustrations and labs).
-
+- Florian Oswald for his econometrics class at SciencePo `ScPoEconometrics`.
 
 - Imke Mayer and Erwan Scornet for sharing to me their slides and lab;
 
@@ -739,7 +741,9 @@ To professors and people sharing their class. Most of the content here comes fro
 
 --
 
-If you want to dig into the theory you can read the book *Régression avec R* from Eric Matzner-Lober and Pierre-André Cornillon. You can also watch the Youtube series of Trevor Hastie and Robert Tishirani.
+If you want to dig into the theory you can read the book *Régression avec R* from Eric Matzner-Lober and Pierre-André Cornillon. 
+
+You can also watch the Youtube series of Trevor Hastie and Robert Tishirani.
 
 
 
