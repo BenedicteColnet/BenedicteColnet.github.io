@@ -22,7 +22,7 @@ The files are updated as the course progresses:
 
 - [Lab 1]({{ site.url }}/files/lab1/Principal_Component_Analysis_questions.pdf), [data]({{ site.url }}/files/lab1/decathlon.csv), and [solutions]({{ site.url }}/files/lab1/Principal_Component_Analysis.pdf)
 
-- [Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with [Lab 2]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
+- [Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with Lab 2 [questions]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf), [solutions]({{ site.url }}/files/class3/lab/Lab3_regression.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
 
 
 The data challenge will be launched on March, 15th. 
