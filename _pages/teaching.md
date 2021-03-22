@@ -24,8 +24,9 @@ The files are updated as the course progresses:
 
 - [Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with Lab 2 [questions]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf), [solutions]({{ site.url }}/files/class3/lab/Lab3_regression.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
 
-- Data challenge [description]({{ site.url }}/files/datachallenge/DataChallenge.pdf)
-- R [notebook]({{ site.url }}/files/datachallenge/22marsR.pdf)
+Data challenge:
+- [description]({{ site.url }}/files/datachallenge/DataChallenge.pdf)
+- Data exploration [notebook]({{ site.url }}/files/datachallenge/22marsR.pdf) in R
 
 
 
