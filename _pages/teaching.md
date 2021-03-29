@@ -24,7 +24,7 @@ Course materials:
 
 - [Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with Lab 2 [questions]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf), [solutions]({{ site.url }}/files/class3/lab/Lab3_regression.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
 
-- Introduction to causal inference's [slides]({{ site.url }}(/files/classcausal/causal_introduction.html)
+- Introduction to causal inference's [slides]({{ site.url }}/files/classcausal/causal_introduction.html)
 
 Data challenge:
 - [description]({{ site.url }}/files/datachallenge/DataChallenge.pdf)
