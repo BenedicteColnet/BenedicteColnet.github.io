@@ -12,7 +12,7 @@ description: Here you can find the teaching activity I have and the associated m
 
 This class is an introduction to data analysis, statistics and machine learning designed for students majoring in economy, social sciences and history. A part of the class is dedicated to a real-analysis of data related to economy and sociology (the so-called data challenge). We also include a part on text mining for students who would like to work on these data.
 
-The files are updated as the course progresses:
+Course materials:
 
 - [Presentation]({{ site.url }}/files/SlidesPresentationsCours2021.pdf)
 
@@ -24,10 +24,13 @@ The files are updated as the course progresses:
 
 - [Class 3]({{ site.url }}/files/class3/cours/Cours3.html), with Lab 2 [questions]({{ site.url }}/files/class3/lab/Lab3_regression_questions.pdf), [solutions]({{ site.url }}/files/class3/lab/Lab3_regression.pdf) and associated [data]({{ site.url }}/files/class3/lab/bea-2006.csv)
 
+- Introduction to causal inference's [slides]({{ site.url }}(/files/classcausal/causal_introduction.html)
+
 Data challenge:
 - [description]({{ site.url }}/files/datachallenge/DataChallenge.pdf)
 - Data exploration [notebook]({{ site.url }}/files/datachallenge/22marsR.pdf) in R
 
+The code for the materials is also available on [github](https://github.com/BenedicteColnet/cours-IA-SHS-2021)
 
 
 **Others**
