@@ -2,15 +2,15 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: Here you can find the teaching activity I have and the associated materials. Feel free to use it for your own purpose! I also highly appreciate feedbacks.
+description: Here you can find the teaching activity I have and the associated materials. 
 ---
 
 
-**Data challenge**
+**Statistics and Machine Learning for humanities**
 
 *2021 - January to April - Master students*
 
-This class is an introduction to data analysis, statistics and machine learning designed for students majoring in economy, social sciences and history. A part of the class is dedicated to a real-analysis of data related to economy and sociology (the so-called data challenge). We also include a part on text mining for students who would like to work on these data.
+This class is an introduction to data analysis, statistics and machine learning designed for students majoring in economy, social sciences and history. 
 
 Course materials:
 
@@ -30,7 +30,7 @@ Data challenge:
 - [description]({{ site.url }}/files/datachallenge/DataChallenge.pdf)
 - Data exploration [notebook]({{ site.url }}/files/datachallenge/22marsR.pdf) in R
 
-The code for the materials is also available on [github](https://github.com/BenedicteColnet/cours-IA-SHS-2021)
+The code for the materials is available on [github](https://github.com/BenedicteColnet/cours-IA-SHS-2021)
 
 
 **Others**
