@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2020-11-16 
+date: 2021-05-13 
 inline: true
 ---
 
-With [Imke Mayer](https://www.imkemayer.com/) (and many others) we have a new preprint on combining randomized trial and observational studies - [pdf](https://arxiv.org/abs/2011.08047)
+With [Julie Josse](http://juliejosse.com/), [Erwan Scornet](https://erwanscornet.github.io/), [Gaël Varoquaux](http://gael-varoquaux.info/) we have a new preprint on sensitivity analysis and missing covariates - [pdf](https://arxiv.org/abs/2105.06435)
