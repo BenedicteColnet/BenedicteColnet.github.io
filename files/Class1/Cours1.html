@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Class 1: Data visualization and exploration</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bénédicte Colnet" />
+    <script src="Cours1_files/header-attrs-2.17/header-attrs.js"></script>
+    <link href="Cours1_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="Cours1_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="Cours1_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="Cours1_files/kePrint-0.0.1/kePrint.js"></script>
+    <link href="Cours1_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Class 1: Data visualization and exploration
+]
+.author[
+### Bénédicte Colnet
+]
+.date[
+### Lundi 16 Janvier 2023
+]
+
+---
+
+
+
+
+# Purpose of this class
+
+
+At the end of this class you will be able to perform a ***data exploration*** in `R`. 
+
+--
+
+This term first appeared in a book from John Tukey (1977):
+
+*"Practice of inspecting, and exploring your data, before stating hypotheses, fitting predictors, and other more ambitious inferential goals. It typically includes the computation of simple summary statistics which capture some property of interest in the data, and visualization."*
+
+--
+
+It includes being able to:
+
+- Load and preview data;
+- Visualize data;
+- Compute basic statistical metrics such as mean, median, correlation coefficient;
+- Understand what is behind a confidence interval;
+- Run standard statistical tests;
+- Be aware of typical bias (Simpson paradox);
+- Understand what a p-value means.
+
+---
+# Getting set up
+
+
+You must install `R` and RStudio.
+
+These are two different applications that must be installed separately before they can be used together:
+
+- (1) `R` is the core underlying programming language and computing engine that we will be learning in this course
+
+- (2) RStudio is an interface into R that makes many aspects of using and programming R simpler
+
+Both `R` and RStudio are available for Windows, macOS, Unix, and Linux. Please download the version that is suitable for your computing setup.
+
+Throughout the course, we will make use of numerous R add-on packages that must be installed over the Internet. Packages can be installed using the `install.packages()` function in `R`. For example, to install the tidyverse package, you can run
+
+---
+# Why can't we just use Excel? 🤔
+
+Do you have an idea?
+
+--
+
+- Not reproducible 🔁
+- Hard to merge different data set 🤝
+- To clean data is fastidious 🧹
+- Not designed for complex visualization 🎨
+- It is not free 👛
+- And it can be super slow 🐢
+
+
+&lt;img src="./img/slow.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+---
+# Hands-on! 
+
+## Topic
+
+Today, we will act as *Guillaume Rozier* and investigate open data. 
+
+We will start with the house prices data in 2022 in Paris.
+
+**Data**   `DVF`: `https://files.data.gouv.fr/geo-dvf/2022-06/csv/`
+
+--
+
+## How to load data?
+
+(Classical) data are generally contained within a file in which the individuals are presented in rows and the variables in columns. 
+
+
+The classical way to read a data file is to use the function `read.table` or `read.csv`.
+
+
+```r
+immo &lt;- read.csv("2022.csv", header = TRUE) 
+```
+
+---
+# Dataframe: kezako?
+
+In `R` the data are stored in an object called a `data.frame`.
+
+
+Here, our data are stored in an `R` object called `immo`. You can give the name you want to your objects, but try to be consistent and kind with an external reader.
+
+
+## Inspect your object
+
+- Let's look at the first 3 rows of `immo`. (you can also do `head(immo)`)
+
+
+
+```r
+immo[1:3, 1:4] # show first 3 rows and 4 first columns
+```
+
+```
+##   id_mutation date_mutation numero_disposition nature_mutation
+## 1 2022-514000    2022-01-04                  1           Vente
+## 2 2022-514000    2022-01-04                  1           Vente
+## 3 2022-514000    2022-01-04                  1           Vente
+```
+
+--
+
+- To access one of the variable, you can use the `$` operator, for example with the city.
+
+
+```r
+immo$code_postal[1:3] # only the first 3
+```
+
+```
+## [1] 75018 75018 75018
+```
+
+--
+
+Note that this is equivalent as `immo[, "code_postal"]` or `immo[, 10]`.
+
+---
+# Notations
+
+
+
+We will (try to!) have as less as possible the need of mathematical formula for this class. 
+
+--
+
+The core material in statistics and machine learning is *data* (and it can be dirty data!):
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; date_mutation &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; code_postal &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; valeur_fonciere &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; lot1_surface_carrez &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2022-01-04 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 580000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 61 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 122 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2022-01-06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75020 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 385000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3934 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2022-02-15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75010 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 20000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2022-06-09 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75017 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1758250 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+This is the minimum notation you should keep in mind:
+
+- `\(n\)` is the number of observation in a data set
+- `\(p\)` is the number of covariates (= features = caracteristics) by observation 
+- `\(X\)` is usually a matrix of size `\(n\)` x `\(p\)` (you can also find `\(Y\)`, a vector of size `\(n\)` x `\(1\)`, being the variable to explain). A realization of the variable can be denoted `\(x\)`
+- `\(i\)` denotes the `\(i^{th}\)` observations, for example `\(x_i\)` is the `\(i^{th}\)` element of a sample.
+
+---
+# Typical statistical quantities
+
+
+### Empirical mean
+
+If we consider a random variable `\(X\)`, we would like to define its average. It can also be seen as a weighted sum of the possible values that `\(X\)` can take.
+
+--
+Mathematically it is written:
+
+`$$\bar{x}=\frac{1}{n} \sum_{i=1}^{n} x_{i}$$`
+
+--
+
+### Standard deviation
+
+.pull-left[
+It measures how the spread in the data.
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/sd.png" alt="From sixsigmadsi.com" width="80%" /&gt;
+&lt;p class="caption"&gt;From sixsigmadsi.com&lt;/p&gt;
+&lt;/div&gt;
+]
+.pull-right[
+
+Using the previous notations for the expected value it gives:
+
+`$$\sigma=\sqrt{V}=\sqrt{\frac{1}{n} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}}$$`
+]
+
+---
+# Detail of the variables
+
+
+Here we have at our disposal 49372 observations collected during 2022, with part of the columns being,
+
+- `id_mutation`
+- `date_mutation` 
+- `nature_mutation` 
+- `adresse_nom_voie`
+- `valeur_fonciere` 
+- `lot1_surface_carrez` 
+- and so on...
+
+--
+
+Before any analysis an important point is to visualize the data. 
+For example you can print the dimension of the dataframe stored in the object `immo`.
+
+
+```r
+dim(immo) 
+```
+
+```
+## [1] 49372    40
+```
+
+---
+# Univariate analysis
+
+
+`summary()` details the data type of each column.
+
+```r
+summary(immo[, c("valeur_fonciere", "nature_mutation", "code_postal")]) 
+```
+
+```
+##  valeur_fonciere     nature_mutation     code_postal   
+##  Min.   :        0   Length:49372       Min.   :75001  
+##  1st Qu.:   290000   Class :character   1st Qu.:75010  
+##  Median :   530000   Mode  :character   Median :75015  
+##  Mean   :  2620385                      Mean   :75013  
+##  3rd Qu.:  1097000                      3rd Qu.:75017  
+##  Max.   :271464000                      Max.   :75020  
+##  NA's   :2111                           NA's   :236
+```
+
+--
+
+Can you already see difference in variable type? 🕵
+
+---
+# Useful commands
+
+
+All the column names can be retrieved with the command `names()`.
+
+
+```r
+names(immo)
+```
+
+```
+##  [1] "id_mutation"                  "date_mutation"               
+##  [3] "numero_disposition"           "nature_mutation"             
+##  [5] "valeur_fonciere"              "adresse_numero"              
+##  [7] "adresse_suffixe"              "adresse_nom_voie"            
+##  [9] "adresse_code_voie"            "code_postal"                 
+## [11] "code_commune"                 "nom_commune"                 
+## [13] "code_departement"             "ancien_code_commune"         
+## [15] "ancien_nom_commune"           "id_parcelle"                 
+## [17] "ancien_id_parcelle"           "numero_volume"               
+## [19] "lot1_numero"                  "lot1_surface_carrez"         
+## [21] "lot2_numero"                  "lot2_surface_carrez"         
+## [23] "lot3_numero"                  "lot3_surface_carrez"         
+## [25] "lot4_numero"                  "lot4_surface_carrez"         
+## [27] "lot5_numero"                  "lot5_surface_carrez"         
+## [29] "nombre_lots"                  "code_type_local"             
+## [31] "type_local"                   "surface_reelle_bati"         
+## [33] "nombre_pieces_principales"    "code_nature_culture"         
+## [35] "nature_culture"               "code_nature_culture_speciale"
+## [37] "nature_culture_speciale"      "surface_terrain"             
+## [39] "longitude"                    "latitude"
+```
+
+Basic statistics can be computed:
+
+
+```r
+mean(immo$valeur_fonciere, na.rm = TRUE)
+```
+
+```
+## [1] 2620385
+```
+
+---
+# Useful commands (bis)
+
+
+```r
+mean(immo[immo$valeur_fonciere &lt; 4000000 &amp; immo$valeur_fonciere &gt; 50000, "valeur_fonciere"], na.rm = TRUE)
+```
+
+```
+## [1] 762458.3
+```
+
+--
+
+Note that the option `na.rm = TRUE` is necessary because the data contain missing value. If not the output will be `NA`.
+
+--
+
+All the basics statistics are implemented such as `sd()`, `min()`, `median()`, or `max()`.
+
+---
+
+
+# Two important data types
+
+The data can be of two types: 
+
+- **Qualitatives** 
+
+  *For example colors, or gender.*
+
+- **Quantitatives**
+
+  *For exemple a salary, or heigth.*
+
+--
+
+⚠️ You have to be careful, whenever you replace colors by numbers (for example red with 0 and blue with 1), the data type will be set to numerical (so quantitative) and the computer can do operation on it. For example blue will be considered bigger than red, which has no meaning.
+
+--
+
+💡 The command `summary()` already allows you to observe your data type, another command is possible with `str()`.
+
+--
+
+🖍 You can change the type of your data from quantitative to qualitative using the command `factor()`.
+---
+
+
+# Data type in the `immo` data set
+
+Inspect qualitative data is basically counting occurences:
+
+
+```r
+table(immo$nature_mutation)
+```
+
+```
+## 
+##                       Adjudication                            Echange 
+##                                 31                                312 
+##                              Vente Vente en l'état futur d'achèvement 
+##                              48563                                459 
+##              Vente terrain à bâtir 
+##                                  7
+```
+
+
+--
+
+You can do operation on quantitative variables:
+
+```r
+test &lt;- immo$lot1_surface_carrez + immo$lot2_surface_carrez
+test[905:920]
+```
+
+```
+##  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+```
+
+```r
+mean(test, na.rm = TRUE)
+```
+
+```
+## [1] 127.9222
+```
+
+--
+
+By the way, you can create a column composed by operation on other column such as `immo$my_new_column &lt;- immo$lot1_surface_carrez + immo$lot2_surface_carrez`.
+
+---
+# Visualization in R
+
+Remember you can draw very beautiful plots in `R`.
+
+
+In this class we suggest you to use:
+
+
+- `ggplot2` for static plots;
+
+- `gganimate` if you want to do animated plots from static `ggplot`;
+
+- `Shiny` or `flexdashboard` to host dynamic visualization of your data (really great to share  visualization of a big data base within a team or for external communication). 
+
+
+--
+
+Before we detail how to do it, here are example to show you a part of what  is possible!
+
+
+---
+# Example 1 : time series
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Example 2 : scatter plot
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Example 3 : population pyramid
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Example 4: heat maps
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Animated plots
+
+These are data linking GDP per capita and life expectancy over years and for different countries. We may want to animate it over time.
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Animated plots
+
+These are data linking GDP per capita and life expectancy over years and for different countries. We may want to animate it over time.
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-19-1.gif" style="display: block; margin: auto;" /&gt;
+
+---
+# Visualization using shiny apps
+
+Examples:
+
+- Models used by the united nation to predict demography: [&lt;ru-blockquote&gt; here &lt;/ru-blockquote&gt;](https://bayespop.shinyapps.io/wpp2019explorer/)
+
+- An online application to predict covid19 increase made by Prof. Marc Lavielle in France: [&lt;ru-blockquote&gt; here  &lt;/ru-blockquote&gt;](http://shiny.webpopix.org/covidix/app3/)
+
+
+--
+
+As you can see, these are great tools for your professional life.
+
+---
+# Visualization: ggplot2
+
+In this class we use the package `ggplot2` (implementation by Hadley Wickam). 
+
+--
+
+A `ggplot2` object will have the following elements.footnote[This source explains it well: http://www.john-ros.com/]:
+
+- `data` the data frame holding the data to be plotted.
+
+- `aes` defines the mapping between variables to their visualization.
+
+- `geoms` are the objects/shapes you add as layers to your graph.
+
+- `stats` are statistical transformations when you are not plotting the raw data, such as the mean or confidence intervals.
+
+
+---
+# Histogram
+
+- Visualization of a quantitative variable: histogram
+
+
+```r
+library(ggplot2)
+ggplot(immo[immo$valeur_fonciere &lt; 2000000 &amp; immo$valeur_fonciere &gt; 50000, ], aes(x = valeur_fonciere)) +  
+  geom_histogram(bins = 50, na.rm = TRUE)
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Histogram with options
+
+- Visualization of a quantitative variable: histogram
+
+
+```r
+# library(ggplot2) # you call it only once
+ggplot(immo[immo$valeur_fonciere &lt; 2000000 &amp; immo$valeur_fonciere &gt; 50000, ], aes(x = valeur_fonciere)) +  
+  geom_histogram(bins = 50, # important parameter!
+                 alpha = 0.5, # transparency
+                 color = "blue", #border
+                 fill = "pink", # color to fill
+                 na.rm = TRUE) + # do the plot ignoring NAs
+    theme_bw() # you can look for different themes
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+
+You can find a recap of all the possibilities [&lt;ru-blockquote&gt; here &lt;/ru-blockquote&gt;](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).
+---
+
+# Barplot
+- Visualisation of a categorical variable: barplot
+
+
+```r
+ggplot(immo, aes(x = nature_mutation)) +  
+  geom_bar(stat = "count", # note the difference!
+                 alpha = 0.5, # transparency
+                 color = "cyan",
+                 fill = "blue") 
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+# Barplot
+
+Better!
+
+
+```r
+ggplot(immo, aes(x = nature_mutation)) +  
+  geom_bar(stat = "count", # note the difference!
+                 alpha = 0.5, # transparency
+                 color = "cyan",
+                 fill = "blue") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Boxplot
+
+A univariate boxplot helps to highlights outliers.
+
+
+```r
+ggplot(immo[immo$valeur_fonciere &lt; 10000000, ], aes(y = valeur_fonciere)) +  
+  geom_boxplot(outlier.color = "red") +
+  theme_bw()
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+# Summarizing data: one variable
+
+Let's pause and look at what we saw.
+
+--
+
+- Statistic for a quantitative variable
+
+  *Quartiles, percentile, mean, median, range, variance, standard deviation*
+
+--
+
+- Statistics for a categorical variable: 
+
+  *Frequency*
+
+--
+
+- Plots
+  - *Quantitative*: boxplot and histogram
+  - *Qualitative*: barplot
+  
+--
+
+💪 Never forget that `R` has a very active community that will (almost) always have a solution to your problem. When you don't understand an error message, copy paste your error message in a web browser and you will find a solution. 
+
+--
+
+Now we would like to analyze several variables **together**. It is a way to highlight associations between the variables!
+
+
+---
+# Visualization: boxplot
+
+You can observe association between a quantitative and qualitative variable.
+
+
+```r
+ggplot(immo[immo$valeur_fonciere &lt; 2000000 &amp; immo$nombre_pieces_principales %in% c(1,2,3,4), ], aes(x = valeur_fonciere, y = as.factor(nombre_pieces_principales))) +
+  geom_boxplot() + 
+  theme_bw()
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+---
+# Visualization: violin
+
+You can choose many other representations, for example violin plots...
+
+
+```r
+ggplot(immo[immo$valeur_fonciere &lt; 2000000 &amp; immo$nombre_pieces_principales %in% c(1,2,3,4), ], aes(x = valeur_fonciere, y = as.factor(nombre_pieces_principales))) +
+  geom_violin() + 
+  theme_bw()
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Visualization: violin
+
+
+and superposition of your real data points ! (in this specific plot it is a bit dirty...)
+
+
+
+```r
+ggplot(immo[immo$valeur_fonciere &lt; 2000000 &amp; immo$nombre_pieces_principales %in% c(1,2,3,4), ], aes(x = valeur_fonciere, y = as.factor(nombre_pieces_principales))) +
+  geom_violin() + 
+  geom_jitter(alpha = 0.2, width = 0.1, color = "darkblue")+
+  theme_bw()
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Improve your code and reproducibility
+
+For now we have been repeating at least one command. Which one?
+
+--
+
+Usually, at the beginning of your script or notebook, it is a good habits to note all your assumptions on data.
+
+
+```r
+# at the beginning of your notebook
+VALEUR_FONCIERE_MAX = 2000000
+VALEUR_FONCIERE_MIN = 50000
+SURFACE_MAX = 200
+
+immo &lt;- immo[immo$valeur_fonciere &lt; VALEUR_FONCIERE_MAX &amp; immo$valeur_fonciere &gt; VALEUR_FONCIERE_MIN &amp; immo$lot1_surface_carrez &lt; SURFACE_MAX,]
+```
+
+
+It will allow you to:
+- keep in mind what you assumed
+- change assumption in one click for the whole document
+
+&gt;Note that the convention is to use capital letters.
+
+---
+# Visualization: scatter plot
+
+
+```r
+ggplot(immo, aes(x = lot1_surface_carrez, y = valeur_fonciere)) +
+  geom_point() + 
+  theme_bw()
+```
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+
+Beyond visualization, you all now a numerical indicator that is usually used to characterize the association between two variables ❓
+---
+
+# Bivariate analysis
+
+## Correlation coefficient
+
+- Very popular metric
+- Useful (but contains limits, don't forget it)
+- The Pearson coefficient is the most used
+
+--
+
+The correlation coefficient between two variables `\(X_1\)` and `\(X_2\)` (for example `lot1_surface_carrez` and `valeur_fonciere`):
+ 
+
+`$$\rho_{X_1, X_2}=\frac{\overline{X_1 X_2}- \bar{X_1} \bar{X_2}}{\sigma_{X_1} \sigma_{X_2}}$$`
+
+*where `\(\sigma_{X_i}\)` is the empirical standard deviation of `\(X_i\)`*
+
+--
+
+- `\(\rho_{X_1, X_2} = 1\)` or `\(-1\)`: implies that a linear equation describes the relationship between `\(Z\)` and `\(Y\)` perfectly
+
+- `\(\rho_{X_1, X_2} = 0\)`: no linear relationship between `\(X_1\)` and `\(X_2\)` (⚠️ which is different as saying no relation at all!)
+
+
+---
+# Correlation (1)
+
+## Application in `R` 
+
+We can observe the Pearson correlation between temperature at 12pm and 3pm. 
+
+
+```r
+cor(immo$lot1_surface_carrez, immo$valeur_fonciere, method = "pearson", use = "complete.obs")
+```
+
+```
+## [1] 0.8622584
+```
+
+
+As expected it shows a high correlation coefficient. We can observe the data to see if it seems coherent. 
+
+--
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+
+Does the linearity seems to be a good hypothesis for these data? Is it surprising?
+
+---
+
+# Correlation (2)
+
+## An apparently simple example
+
+We create a function that simulates two vectors from a Gaussian distribution (mean being 0, and standard deviation being 1) of size `\(n\)`. We first choose `\(n =2\)`, then we do it up to `\(200\)`. We compute the correlation coefficient between each new sampling.
+
+--
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+
+Comment. What should we do?
+
+
+---
+# Correlation (3)
+
+You can test if your correlation coefficient is meaningful (statistically speaking).
+
+--
+First we do this with only 5 observations:
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  x1 and x2
+## t = -0.2056, df = 3, p-value = 0.8503
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.9059275  0.8531128
+## sample estimates:
+##        cor 
+## -0.1178748
+```
+
+What can we conclude?
+
+--
+
+Don't worry if you don't understand how it works for now, we will come back to this later ✅
+
+---
+# Correlation (4)
+## Test with a bigger data set
+
+We repeat the previous test with 10000 observations:
+
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  x1 and x2
+## t = 0.92501, df = 9998, p-value = 0.355
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.01035136  0.02884543
+## sample estimates:
+##         cor 
+## 0.009250592
+```
+
+And now?
+
+---
+# Correlation (5)
+
+Back to our `immo` example:
+
+
+```r
+res &lt;- cor.test(immo$lot1_surface_carrez, immo$valeur_fonciere, method = "pearson", use = "complete.obs")
+res
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  immo$lot1_surface_carrez and immo$valeur_fonciere
+## t = 235.91, df = 19201, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.8585855 0.8658427
+## sample estimates:
+##       cor 
+## 0.8622584
+```
+
+What can we conclude?
+
+
+---
+# Correlation only reflects linearity!
+
+Be careful with correlation. For example all the following data have same mean, sd, and correlation coefficient! (package `datasauRus`)
+
+
+
+
+
+.center[![Gapminder](./animated_plot/ex_gganimate.gif)]
+
+---
+
+# Correlation is not causation
+
+
+This credo is constantly repeated, but still it remains very important to understand that __an association in data does not imply a causation__. 
+
+
+Correlation is one type of association between data. As long as you only observe phenomenon, you can hardly conclude on causation until you perform experiments.
+
+--
+
+This funny website proposes a lot of funny associations:
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/spurious-correlation.png" alt="From http://tylervigen.com/spurious-correlations" width="60%" /&gt;
+&lt;p class="caption"&gt;From http://tylervigen.com/spurious-correlations&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Another example
+
+- Sleeping with shoes and headache can show a really strong correlation!
+
+&lt;img src="./img/shoes.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+--
+
+- Do umbrellas cause car accidents?
+
+--
+
+
+⚠️ Unobserved confounders makes it impossible to separate correlation and causality when correlated to both the outcome and the treatment.
+
+
+---
+
+# An apparently simple conclusion
+
+Let's have a look to a well-know paradox! 🕵
+
+--
+
+
+Covid-19 case fatality rates between China and Italy: 44 672 cases from China with early reports from Italy (9th March).
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/italy_china.png" alt="Screenshot from J. von Kügelgen et al., 2020" width="35%" /&gt;
+&lt;p class="caption"&gt;Screenshot from J. von Kügelgen et al., 2020&lt;/p&gt;
+&lt;/div&gt;
+
+What do you conclude?
+
+
+---
+# A paradox?
+
+The same data can be represented with age strata.
+
+&lt;div class="figure"&gt;
+&lt;img src="./img/italy_china_age.png" alt="Screenshot from J. von Kügelgen et al., 2020" width="80%" /&gt;
+&lt;p class="caption"&gt;Screenshot from J. von Kügelgen et al., 2020&lt;/p&gt;
+&lt;/div&gt;
+
+What do you conclude from this graph? 
+
+---
+# The Simpson paradox
+
+
+&lt;div class="figure"&gt;
+&lt;img src="./img/italy_china_case.png" alt="Screenshot from J. von Kügelgen et al., 2020" width="60%" /&gt;
+&lt;p class="caption"&gt;Screenshot from J. von Kügelgen et al., 2020&lt;/p&gt;
+&lt;/div&gt;
+
+- Complete article: *Simpson's paradox in Covid-19 case fatality rates: a mediation analysis of age-related causal effects* from Julius von Kügelgen, Luigi Gresele, Bernhard Schölkopf
+
+---
+# Another example: effect of class size (1)
+
+Imagine we want to measure the effect of class size on the results of children.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/histogram_class_size.png" alt="DEPP" width="50%" /&gt;
+&lt;p class="caption"&gt;DEPP&lt;/p&gt;
+&lt;/div&gt;
+
+What do you suggest to measure the effect?
+
+---
+# Another example: effect of class size (2)
+
+.pull-left[
+&lt;img src="./img/naive_class.png" width="150%" style="display: block; margin: auto;" /&gt;
+
+The difference is statistically significant.
+]
+
+--
+
+.pull-right[
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/histogram_class_size_with_categ.png" alt="DEPP" width="180%" /&gt;
+&lt;p class="caption"&gt;DEPP&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+# Break
+
+We can pause and resume what we saw.
+
+--
+
+- Correlation coefficient is an interesting tool, 
+
+- ... but it can not resume all type of association and it has to be significant!
+
+- Correlation is an association between data, it does not imply a causal link.
+
+- Paradox can be hidden in the data, the Simpson paradox is a famous one.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/simpson_paradox.jpg" alt="Simpson paradox made simple" width="40%" /&gt;
+&lt;p class="caption"&gt;Simpson paradox made simple&lt;/p&gt;
+&lt;/div&gt;
+
+
+--
+
+➡️ The next part of the class is about statistical test, and how to get an information from a limited sample.
+
+---
+# Statistical tests
+
+With the correlation coefficient, we introduced the concept of a statistical test. The typical question to answer is:
+How we can draw conclusions or make decisions based on finite samples of data?
+
+--
+
+A wide variety of usage:
+
+- Clinical trials and efficacy;
+
+- Economic experiments;
+
+- Screening genetic variants for associations with a phenotype, and many others.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/test.png" alt="Credits: Modern Statistics for Modern Biology, Chap 6., Susan Holmes" width="20%" /&gt;
+&lt;p class="caption"&gt;Credits: Modern Statistics for Modern Biology, Chap 6., Susan Holmes&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Confidence interval (CI)
+
+.pull-left[
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/confidence_interval.png" alt="Credits: xkcd.com" width="50%" /&gt;
+&lt;p class="caption"&gt;Credits: xkcd.com&lt;/p&gt;
+&lt;/div&gt;
+
+]
+.pull-right[
+
+* In real life we only get to take ***one*** sample from the population.
+
+* Also, we obviously don't know the true population parameter, that's what we are interested in!
+
+* What can we do in practice?
+
+]
+
+--
+
+
+Even unobserved, we know that the sampling distribution does exist (or we put hypothesis on it), and with assumptions, we know how it behaves!
+
+---
+# Point estimates versus CI
+
+Until now we have only estimated *point estimates* from our samples: for example sample mean.
+
+--
+
+We saw a glimpse of what is a confidence interval with the correlation test. But what does this mean exactly?
+
+--
+
+Rather that a point estimate, we could give a range of plausible values for the parameters we are interested in.
+
+
+--
+
+This is what a **confidence interval** (CI) provides.
+
+--
+
+With a confidence interval comes a confidence *level*, usually it is 95%.
+
+&gt; *Interpreation* Imagine we do 100 times the experiment and construct a confidence interval. 95 out of 100 of the confidence intervals constructed would contain the good value.
+
+--
+
+There are several ways to compute a CI, depending on the question asked.
+
+---
+# Intuition of the notion
+
+We can simulate data of a somnifere on the average sleeping time. Here you can see the results of a small study with 30 people included.
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+
+What can you conclude?
+
+---
+# The more data, the bigger the certainty
+
+Here we gathered 100 patients in the study.
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
+---
+
+#  In practice
+
+
+```r
+t.test(control, sample2)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  control and sample2
+## t = -4.6694, df = 140.62, p-value = 0.00000698
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.400420 -0.567307
+## sample estimates:
+## mean of x mean of y 
+##  7.111882  8.095745
+```
+--
+
+The command is simple, but then you have to precisely know where to read the results (confidence interval, p-value, hypothesis meaning, and so on).
+
+Also, be careful on the fact that it requires hypothesis on your distribution.
+
+---
+# With immo data set
+
+
+
+
+```r
+t.test(immo$valeur_fonciere, conf.level = 0.95)$conf.int
+```
+
+```
+## [1] 558725.7 569793.8
+## attr(,"conf.level")
+## [1] 0.95
+```
+
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-53-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Conclusion
+
+Today you have seen how to perform a simple data exploration with `R` and that being cautious with indicators is important.
+
+--
+
+By next class you can train on any data set to perform a simple data analysis. You can find some more (related to economy) on the github `experimentdatar` repository.
+
+--
+
+Next class will be about Principal Component Analysis (PCA), clustering and dimension reduction.
+
+--
+
+For the 30 remaining minutes, two groups:
+- for students already familiar with `R` an assignment with `immo` data,
+- for the others, hands on and I'll help you.
+---
+
+# Ressources
+
+Plenty of ressources are available online on data exploration and statistics with `R`. And we gathered some for you here:
+
+**Basics**
+
+- [&lt;ru-blockquote&gt;
+TedX on data visualisation
+&lt;/ru-blockquote&gt;](https://www.ted.com/talks/david_mccandless_the_beauty_of_data_visualization?language=fr)
+
+- [&lt;ru-blockquote&gt;
+Starting with Rstudio, advanced statistics &lt;/ru-blockquote&gt;](http://larmarange.github.io/analyse-R/)
+
+**Funny**
+
+- [&lt;ru-blockquote&gt; To play down statistics: *La statistique expliquée à mon chat* &lt;/ru-blockquote&gt;](https://www.youtube.com/channel/UCWty1tzwZW_ZNSp5GVGteaA/featured)
+
+
+**Advanced**
+
+- [&lt;ru-blockquote&gt; Susan Holmes' book "Modern Statistics for Modern Biology" &lt;/ru-blockquote&gt;](http://web.stanford.edu/class/bios221/book/)
+- [&lt;ru-blockquote&gt; Introduction to econometrics with R (SciencesPo)&lt;/ru-blockquote&gt;](https://scpoecon.github.io/ScPoEconometrics/index.html) 
+
+---
+# Credits
+
+This class was made with inspiration from:
+
+- [&lt;ru-blockquote&gt; Susan Holmes' book "Modern Statistics for Modern Biology" &lt;/ru-blockquote&gt;](http://web.stanford.edu/class/bios221/book/)
+
+- [&lt;ru-blockquote&gt; Introduction to econometrics with R (SciencesPo)&lt;/ru-blockquote&gt;](https://scpoecon.github.io/ScPoEconometrics/index.html) 
+
+-[Statistical Programming Paradigms and Workflows (BSPH 140.840) class ressources](https://www.stephaniehicks.com/jhustatprogramming2022/schedule)
+
+- And datanovia website for the animated plots
+
+
+Thanks to all of them - and others - for open science.
+
+---
+# Hands-on!
+
+- Download house price data on `https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres-geolocalisees/`
+- Compute the evolution of mean price from 2016 to 2022 with confidence interval. 
+&gt;Useful commands are `group_by`, `summarise`, and `geom_errorbar`.
+
+- If time, can you find an interesting visualization of what happened during spring 2020 on the house market?
+
+---
+Next slides are additional ones, it completes the statistical tests part in more details.
+
+---
+# From CI to hypothesis testing
+
+Just like confidence intervals, hypothesis tests are used to make claims about a population based on the information from a sample.
+
+--
+
+A hypothesis test consists of a test between two competing hypothesis about a parameter. 
+
+--
+
+&gt;For example the average income for women and men measured in one sample is different. Is the difference significant? 🤔
+
+--
+
+The usual framework you will find in books is:
+
+- The null hypothesis usually states no difference, and we denote it `\(H_{0}\)` (in our little example it would mean that men and women have same average income)
+
+- The alternative hypothesis states that it is different, and we denote it `\(H_{1}\)`
+
+--
+
+Let's take a simple - but detailed - example to understand the principle: coin tossing
+
+---
+# An example: coin tossing
+
+Imagine I simulate a coin with a probability of head `\(p\)` (this is something you can easily do in `R`). 
+
+--
+
+You want to know if the coin is fair ( `\(p = 0.5\)` ). What do you do? 
+
+--
+
+Yes, you start flipping the coin. Results type are:
+
+
+```
+## [1] "H" "T" "H" "T" "T" "H"
+```
+
+--
+
+You do it a lot, for example 100 time. If the coin is fair, you would expect half of the time to get heads. We can compute how many heads you obtained on the 100 flips.
+
+
+```r
+table(coinFlips)
+```
+
+```
+## coinFlips
+##  H  T 
+## 60 40
+```
+
+What do you do? Continue up to 1000 times? Stop and conclude? Was it bad luck?
+---
+# How probable was this realisation?
+
+The number of heads obtained in 100 independent tosses of a coin is:
+
+`$$P(K=k \mid 100, p)=\left(\begin{array}{c}100 \\ k\end{array}\right) p^{k}(1-p)^{100-k}$$`
+
+Where `\(p\)` is the probability of heads.
+
+--
+
+&gt;Notations' tips: 
+- The first term reads as: the probability that the observed value for `\(K\)` is 
+`\(k\)`, given the values of `\(n\)` and `\(p\)` ( `\(p\)` is the parameter of our problem).
+- The big `\(K\)` is all the possible values we can have (here from 0 to 100), and `\(k\)` is the value observed. Statisticians usually write the difference.
+
+
+
+---
+
+
+We implement the previous equation. Note that the binomial is already implemented in `R` with `dbinom`:
+
+
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+
+
+What is the most probable value?
+To what corresponds the vertical line?
+
+--
+
+But at which point could we consider this was not just bad luck?
+
+---
+# Formalization
+
+Statisticians divide the set of all possible `\(k\)` (0 to 100) in complementary regions: a rejection region and a region of no rejection.
+
+--
+
+The common threshold is `\(\alpha = 0.05\)` meaning that if the observed `\(k\)` is in a region which probability is lower than 0.05 then the null-hypothesis is rejected.
+
+--
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/threshold.png" alt="Credits: xkcd cartoons" width="25%" /&gt;
+&lt;p class="caption"&gt;Credits: xkcd cartoons&lt;/p&gt;
+&lt;/div&gt;
+
+
+&gt;⚠️ Remember that the `\(\alpha = 0.05\)` rule is a convention!
+
+---
+# Visualization of the `\(\alpha\)`
+
+
+
+
+
+
+
+&lt;img src="Cours1_files/figure-html/unnamed-chunk-60-1.png" style="display: block; margin: auto;" /&gt;
+
+What do you conclude? 🤔
+
+---
+# Using implemented function
+
+We state the null-hypothesis `\(\mathbb{H}_0:  p=0.5\)`. 
+
+In our example we observe 60 heads. We can use the implemented function:
+
+
+```r
+binom.test(x = numHeads, n = numFlips, p = 0.5)
+```
+
+```
+## 
+## 	Exact binomial test
+## 
+## data:  numHeads and numFlips
+## number of successes = 60, number of trials = 100, p-value = 0.05689
+## alternative hypothesis: true probability of success is not equal to 0.5
+## 95 percent confidence interval:
+##  0.4972092 0.6967052
+## sample estimates:
+## probability of success 
+##                    0.6
+```
+
+We conclude that the coin is fair, but you can observe that it depends on the confidence level you fixed!
+
+---
+# Confidence interval for a mean
+
+For a relative big (&gt;30) sample, the central limit theorem guarantees that the confidence interval is this one:
+
+`$$\left[\bar{x}-\frac{\hat{\sigma}}{\sqrt{n}} \times t_{1-\alpha / 2}(n-1) ; \bar{x}+\frac{\hat{\sigma}}{\sqrt{n}} \times t_{1-\alpha / 2}(n-1)\right]$$`
+With `\(n\)` the sample size, `\(\bar{x}\)` the empirical mean, `\(\hat{\sigma}\)` the empirical standard deviation, and `\(t_{1-\alpha / 2}\)` a parameter from the Student law (beyond the scope of the class).
+
+---
+# p-value
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="./img/pvalue.png" alt="https://towardsdatascience.com/wait-so-whats-a-p-value-6fc50f362df1" width="50%" /&gt;
+&lt;p class="caption"&gt;https://towardsdatascience.com/wait-so-whats-a-p-value-6fc50f362df1&lt;/p&gt;
+&lt;/div&gt;
+
+--
+
+&gt;**Rigorous definition**
+
+&gt;Consider that null-hypothesis is true. The ***p-value*** is the probability of observing a test statistic more extreme than the one we obtained.
+
+&gt;If the p-value falls below the cutoff `\(\alpha\)`, we reject the null hypothesis on the grounds that what we observe is too unlikely to happen under the Null
+
+⚠️ Be careful with what is called the p-value hacking and multiple testing.
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
